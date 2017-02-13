@@ -29,8 +29,8 @@ app.use(express.static(path.join(__dirname, baseDir)));
 // app.use('/', index);
 app.use('/api', api)
 app.use('/users', users);
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './', baseDir, '/index.ejs' ))
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './', baseDir, '/views/index.ejs' ))
 })
 
 // catch 404 and forward to error handler
