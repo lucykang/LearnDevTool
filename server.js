@@ -4,15 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('projectcoffee:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('projectcoffee:server');
+const http = require('http');
+const port = process.env.NODE_ENV === 'production' ? 'build' : 'dist'
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort('8080' || '3000');
 app.set('port', port);
 
 /**
