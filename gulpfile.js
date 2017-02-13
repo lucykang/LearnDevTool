@@ -36,11 +36,11 @@ const config = {
   port: PROD ? 8080 : 3000,
   paths: {
     baseDir: PROD ? 'build' : 'dist',
-    html: src + '/index.html',
-    entry: src + '/index.js',
-    js: src + '/**/*.js',
-    test: src +'/**/*.test.js',
-    css: src + '/**/*.scss',
+    html: src + '/index.ejs',
+    entry: './index.js',
+    js: 'js/**/*.js',
+    test: './**/*.test.js',
+    css: '**/*.scss',
     fonts: src + '/fonts/**/*'
   }
 };

@@ -1,10 +1,10 @@
 /**
- * This is a series of unit tests that test native JavaScript behavior. 
- * In a real production quality app, you’d write a unit test per React component (at least ones that manipulate state), testing React-specific behavior. 
+ * This is a series of unit tests that test native JavaScript behavior.
+ * In a real production quality app, you’d write a unit test per React component (at least ones that manipulate state), testing React-specific behavior.
  * However, for the purposes of this post, it’s enough to simply have a functional unit test that can run in watch mode.
  */
 
-import expect from 'expect';
+import expect from './node_modules/expect';
 
 describe('Array', () => {
   it('should return -1 when the value is not present', () => {

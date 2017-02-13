@@ -8,8 +8,10 @@ const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const api = require('./routes/api')
 
 const app = express();
+const baseDir = process.env.NODE_ENV === 'production' ? 'build' : 'dist';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,8 +26,12 @@ app.use(cookieParser());
 app.use(require('connect-livereload')({port: 35729}))
 app.use(express.static(path.join(__dirname, baseDir)));
 
-app.use('/', index);
+// app.use('/', index);
+app.use('/api', api)
 app.use('/users', users);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './', baseDir, '/index.ejs' ))
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
