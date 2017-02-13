@@ -4,7 +4,7 @@
  * However, for the purposes of this post, it’s enough to simply have a functional unit test that can run in watch mode.
  */
 
-import expect from './node_modules/expect';
+import expect from 'expect';
 
 describe('Array', () => {
   it('should return -1 when the value is not present', () => {

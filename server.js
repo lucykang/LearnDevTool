@@ -3,10 +3,11 @@
 /**
  * Module dependencies.
  */
-
+const open = require('open')
 const app = require('./app');
 const debug = require('debug')('projectcoffee:server');
 const http = require('http');
+// require('babel-core/register')({ presets: ['es2015'] }); // Needed for mocha tests
 // const port = process.env.NODE_ENV === 'production' ? '8080' : 'dist'
 
 /**
@@ -88,4 +89,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  open(`http://localhost:${port}`)
 }

@@ -31,17 +31,16 @@ if (argv.prod) {
 let PROD = process.env.NODE_ENV === 'production';
 
 // Configuration
-const src = 'app';
 const config = {
   port: PROD ? 8080 : 3000,
   paths: {
     baseDir: PROD ? 'build' : 'dist',
-    html: src + '/index.ejs',
-    entry: './index.js',
+    html: 'views/index.ejs',
+    entry: 'index.js',
     js: 'js/**/*.js',
-    test: './**/*.test.js',
+    test: '*.test.js',
     css: '**/*.scss',
-    fonts: src + '/fonts/**/*'
+    fonts: 'public/fonts/**/*'
   }
 };
 
@@ -117,6 +116,10 @@ gulp.task('fonts', () => {
 // Runs an Express server defined in app.js
 gulp.task('server', () => {
   nodemon({
+    "ignore": [
+      ".git",
+      "node_modules/**/node_modules"
+    ],
     script: 'server.js'
   });
 });
@@ -134,7 +137,7 @@ gulp.task('watch', () => {
 
 // Default task, bundles the entire app and hosts it on an Express server
 gulp.task('default', (cb) => {
-  runSequence('clean', 'lint', 'test', 'html', 'css', 'js', 'fonts', 'server', 'watch', cb);
+  runSequence('clean', 'lint', 'html', 'css', 'js', 'fonts', 'server', 'watch', cb);
 });
 
 // Bundles our JS using browserify. Sourcemaps are used in development, while minification is used in production.

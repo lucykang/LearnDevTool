@@ -24,7 +24,6 @@
   ],
   "rules": {
     "quotes": 0,
-    "semi": [1, "always"],
     "no-unused-vars": 1,
     "react/prop-types": 1
   }
