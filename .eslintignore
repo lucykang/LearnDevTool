@@ -1,0 +1,11 @@
+node_modules/*
+dist/*
+public/css/*
+public/images/*
+public/fonts/*
+public/dist/*
+public/js/lib/*
+test/*
+docker/*
+deploy/*
+.github/*

@@ -35,9 +35,9 @@ const config = {
   port: PROD ? 8080 : 3000,
   paths: {
     baseDir: PROD ? 'build' : 'dist',
-    html: 'views/index.ejs',
+    html: 'views/index.html',
     entry: 'index.js',
-    js: 'js/**/*.js',
+    js: '**/*.js',
     test: '*.test.js',
     css: '**/*.scss',
     fonts: 'public/fonts/**/*'
@@ -120,7 +120,7 @@ gulp.task('server', () => {
       ".git",
       "node_modules/**/node_modules"
     ],
-    script: 'server.js'
+    script: 'app.js'
   });
 });
 

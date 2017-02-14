@@ -12,6 +12,7 @@
     "node": true,
     "mocha": true
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -23,8 +24,11 @@
     "react"
   ],
   "rules": {
-    "quotes": 0,
+    "no-console": 0,
+    "no-extra-semi": 1,
+    "no-undef": 1,
     "no-unused-vars": 1,
-    "react/prop-types": 1
+    "react/prop-types": 1,
+    "indent": [2, 2, { "SwitchCase": 1 }]
   }
 }
