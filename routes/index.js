@@ -1,9 +1,10 @@
+'use strict'
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import App from './components/App';
-import HomePage from './components/home/HomePage';
-import AboutPage from './components/about/AboutPage';
-import ContactPage from './components/contact/ContactPage';
+import App from '../public/components/App';
+import HomePage from '../public/components/home/HomePage';
+import AboutPage from '../public/components/about/AboutPage';
+import ContactPage from '../public/components/contact/ContactPage';
 
 export default (
   <Route path="/" component={App}>
@@ -12,13 +13,3 @@ export default (
     <Route path="contact" component={ContactPage} />
   </Route>
 );
-
-// var express = require('express');
-// var router = express.Router();
-
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-
-// module.exports = router;
