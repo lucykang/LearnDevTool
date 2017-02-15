@@ -49,9 +49,8 @@ app.get('*', (req, res) => {
  * Create HTTP server.
  */
 http.createServer(app).listen(port, () => {
-  open(`http://localhost:${port}`)
+  debug('Listening on PORT: ' + port);
 }).on('error', onError).on('listening', () => {
-
   debug('Listening on PORT: ' + port);
 })
 

@@ -6,6 +6,8 @@ const insertLines = require('gulp-insert-lines');
 const mocha = require('gulp-mocha');
 const nodemon = require('gulp-nodemon');
 const gutil = require('gulp-util');
+const open = require('open')
+const path = require('path')
 
 // Other libraries
 const del = require('del');
@@ -92,7 +94,13 @@ gulp.task('build', () => {
     .pipe(gulp.dest(config.paths.baseDir))
 })
 
+// opens default browser automatically when it's built
+gulp.task('open', () => {
+  open(`http://localhost:${config.port}`)
+  // open(__dirname, 'Visual Studio Code.app')
+})
+
 // Default task, bundles the entire app and hosts it on an Express server
 gulp.task('default', (cb) => {
-  runSequence('lint', 'test', 'build', 'server', 'watch', cb);
+  runSequence('lint', 'test', 'build', 'server', 'watch', 'open', cb);
 });
