@@ -9,12 +9,12 @@ const PROD = process.env.NODE_ENV === 'production';
 
 module.exports = {
   debug: true,
-  devtool: PROD ? 'source-map' : 'eval-source-map',
+  devtool: PROD ? 'source-map' : 'eval-source-map', // sets the type of sourcemaps that Webpack will use.
   noInfo: false,
-  entry: PROD ? './app/index' :
+  entry: // PROD ? 'index' :
   [
-    'webpack-hot-middleware/client?reload=true', // reloads the page if hot module reloading fails.
-    './app/index'
+    'webpack-hot-middleware/client?reload=true', // reloads the page if hot module replacement(HMR) fails.
+    'index'
   ],
   target: 'web',
   output: {
@@ -23,11 +23,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: PROD ? './build' : './app'
+    contentBase: PROD ? './build' : './'
   },
   plugins: PROD ?
   [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('bundle.css'),
     new webpack.optimize.DedupePlugin(),
@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: PROD ? 
+        loader: PROD ?
           ExtractTextPlugin.extract('style', 'css?sourceMap!resolve-url!sass?sourceMap') :
           'style!css?sourceMap!resolve-url!sass?sourceMap'
       },
