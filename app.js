@@ -3,18 +3,31 @@ const path = require('path');
 const open = require('open')
 const debug = require('debug')('projectcoffee:server');
 const http = require('http');
+// const compression = require('compression')
+const config = require('./webpack.config')
+const webpack = require('webpack')
 
 // const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+const PROD = process.env.NODE_ENV === 'production'
 const baseDir = process.env.NODE_ENV === 'production' ? 'build' : 'dist';
 const port = process.env.NODE_ENV === 'production' ? 8080: 3000;
 const app = express();
+const compiler = webpack(config)
 
-app.use(require('connect-livereload')({port: 35729}))
-app.use(express.static(path.join(__dirname, baseDir)));
+// if (PROD) {
+//   app.use(compression())
+// } else {
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true, publicPath: config.output.publicPath
+}))
+app.use(require('webpack-hot-middleware')(compiler))
+// }
+
+app.use(express.static(baseDir));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -38,7 +51,7 @@ app.get('*', (req, res) => {
 http.createServer(app).listen(port, () => {
   open(`http://localhost:${port}`)
 }).on('error', onError).on('listening', () => {
-  
+
   debug('Listening on PORT: ' + port);
 })
 

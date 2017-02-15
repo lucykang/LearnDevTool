@@ -27,16 +27,18 @@ RAD without browser refreshes (Hot Module Replacement) |
 Webpack will base64 encode this image if it’s small enough that it makes sense. Since Webpack is totally aware of your build process, it can intelligently split your resources into bundles.
 
 ### Webpack plugins
-__OccurrenceOrderPlugin()__
+`OccurrenceOrderPlugin()`
+
 Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids. This make ids predictable, reduces total file size and is recommended.
 preferEntry (boolean) give entry chunks higher priority. This make entry chunks smaller but increases the overall size. (recommended)
 
-__DefinePlugin()__
+`DefinePlugin()`
+...
 
+`ExtractTextPlugin('bundle.css')`
 
-__ExtractTextPlugin('bundle.css')__
-
-It moves every require("style.css") in entry chunks into a separate css output file. So your styles are no longer inlined into the javascript, but separate in a css bundle file (styles.css). If your total stylesheet volume is big, it will be faster because the stylesheet bundle is loaded in parallel to the javascript bundle.
+It moves every require("style.css") in entry chunks into a separate css output file. So your styles are no longer inlined into the javascript, but separate in a css bundle file (styles.css).
+If your total stylesheet volume is big, it will be faster because the stylesheet bundle is loaded in parallel to the javascript bundle.
 
 Advantages | Caveats
 -----------|---------
@@ -46,7 +48,17 @@ CSS requested in parallel | More complex configuration
 CSS cached separate | No runtime public path modification
 Faster runtime (less code and DOM operations) | Longer compilation time
 
-__DedupePlugin()__
+`DedupePlugin()`
 
-__UglifyJsPlugin()__
+Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
+This doesn’t change the module semantics at all. Don’t expect to solve problems with multiple module instance. They won’t be one instance after deduplication.
+(Not for watch mode. Only for production build.)
 
+`HotModuleReplacementPlugin`
+
+Enables Hot Module Replacement. (This requires records data if not in dev-server mode, recordsPath)
+Generates Hot Update Chunks of each chunk in the records. It also enables the API and makes __webpack_hash__ available in the bundle.
+
+`NoErrorsPlugin()`
+
+When there are errors while compiling this plugin skips the emitting phase (and recording phase), so there are no assets emitted that include errors. The emitted flag in the stats is false for all assets. If you are using the CLI, the webpack process will not exit with an error code by enabling this plugin. If you want webpack to “fail” when using the CLI, please check out the bail option.

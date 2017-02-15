@@ -6,7 +6,9 @@ const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production')
 };
 const PROD = process.env.NODE_ENV === 'production';
-
+/**
+ * loaders : They pre-process files that are loaded through require() statements. They are somewhat similar to Gulp pipes in that you can chain loaders together.
+ */
 module.exports = {
   debug: true,
   devtool: PROD ? 'source-map' : 'eval-source-map', // sets the type of sourcemaps that Webpack will use.
@@ -14,7 +16,7 @@ module.exports = {
   entry: // PROD ? 'index' :
   [
     'webpack-hot-middleware/client?reload=true', // reloads the page if hot module replacement(HMR) fails.
-    'index'
+    'public/index'
   ],
   target: 'web',
   output: {
@@ -39,7 +41,7 @@ module.exports = {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, include: path.join(__dirname, 'app'), loaders: ['babel']},
+      {test: /\.js$/, include: [path.join(__dirname, 'public'), path.join(__dirname, 'routes'), path.join(__dirname, 'test')], loaders: ['babel']},
       {
         test: /\.css$/,
         loader: PROD ?
@@ -52,14 +54,15 @@ module.exports = {
           ExtractTextPlugin.extract('style', 'css?sourceMap!resolve-url!sass?sourceMap') :
           'style!css?sourceMap!resolve-url!sass?sourceMap'
       },
+      // The URL loader instructs Webpack to inline our images and fonts as data urls if they are under 100 KB, otherwise serve them as separate files.
       {test: /\.(svg|png|jpe?g|gif)(\?\S*)?$/, loader: 'url?limit=100000&name=img/[name].[ext]'},
       {test: /\.(eot|woff|woff2|ttf)(\?\S*)?$/, loader: 'url?limit=100000&name=fonts/[name].[ext]'}
     ]
   },
   sassLoader: {
-    includePaths: [path.resolve('./app')]
+    includePaths: [path.resolve(__dirname, './public')]
   },
   resolve: {
-    root: [path.resolve('./app')]
+    root: [path.resolve('./')]
   }
 };
